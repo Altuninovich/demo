@@ -1,0 +1,21 @@
+.content img {
+  height: 300px;
+  width: 1400px;
+}
+.item {
+	color: white;
+    padding: 20px;
+}
+.item img {
+    height: 200px;
+    width: 200px;
+}
+.contact {
+    padding-left: 50px;
+}
+.formError {
+    color: brown;
+    border: brown 1px solid;
+    padding: 5px;
+    width: 300px;
+}
