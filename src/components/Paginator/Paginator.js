@@ -1,6 +1,7 @@
 import cn from "classnames";
 import React, {useState} from 'react';
 import styles from "./Paginator.module.css";
+import {Pagination} from "react-bootstrap";
 
 
 const Paginator = ({numberPages, currentPage, changeUsersThunk, pageSize = 10, portionSize = 10}) => {
@@ -19,28 +20,22 @@ const Paginator = ({numberPages, currentPage, changeUsersThunk, pageSize = 10, p
 
 
     return <div className={styles.paginator}>
-        {portionNumber > 1 &&
-        <button onClick={() => {
-            setPortionNumber(portionNumber - 1)
-        }}>PREV</button>}
-
-        {pages
-            .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-            .map((p) => {
-                return <span className={cn({
-                    [styles.selectedPage]: currentPage === p
-                }, styles.pageNumber)}
-                             key={p}
-                             onClick={(e) => {
-                                 changeUsersThunk(p);
-                             }}>{p}</span>
-            })}
-        {portionCount > portionNumber &&
-        <button onClick={() => {
-            setPortionNumber(portionNumber + 1)
-        }}>NEXT</button>}
+        <Pagination className={styles.pagination}>
+            {portionNumber > 1 && <Pagination.First onClick={() => setPortionNumber(portionNumber - 1)}/>}
+            {pages
+                .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                .map((p) => {
+                    return (
+                        <Pagination.Item className={styles.pagination} key={p}
+                                         onClick={() => changeUsersThunk(p)}
+                                         active={currentPage === p}
+                        >{p}</Pagination.Item>
+                    )
+                })}
 
 
+            {portionCount > portionNumber && <Pagination.Last onClick={() => setPortionNumber(portionNumber + 1)}/>}
+        </Pagination>
     </div>
 }
 

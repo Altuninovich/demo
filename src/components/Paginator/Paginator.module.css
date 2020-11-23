@@ -11,3 +11,40 @@
     font-weight: bold;
     border-color: black;
 }
+
+.pagination > li > a
+{
+    background-color: white;
+    color: purple;
+}
+
+.pagination > li > a:focus {
+    background-color: #c69500;
+}
+.pagination > li > a:hover {
+    background-color: #c69500;
+}
+.pagination > li > span:focus {
+    background-color: #c69500;
+}
+.pagination > li > span:hover {
+    background-color: #10707f;
+}
+{
+    color: purple;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: purple;
+    border: solid 1px purple;
+}
+
+.pagination > .active > a:hover
+{
+    background-color: purple;
+    border: solid 1px purple;
+}
