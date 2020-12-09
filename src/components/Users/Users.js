@@ -3,6 +3,7 @@ import s from './Users.module.css';
 import userPhoto from '../../assets/images/avatar.jpg'
 import {NavLink} from "react-router-dom";
 import Paginator from "../Paginator/Paginator";
+import {Card, Button} from "react-bootstrap";
 
 const Users = (props) => {
 
@@ -30,30 +31,22 @@ const Users = (props) => {
             <Paginator currentPage={currentPage} numberPages={numberPages} changeUsersThunk={changeUsersThunk}/>
             {users.map((user) => (
                 <div className={s.user} key={user.id}>
-                    <span>
-                        <div>
-                            <NavLink to={`/profile/${user.id}`}>
-                            <img src={user.photos.small || userPhoto} className={s.userAvatar}/>
-                            </NavLink>
-                        </div>
-                        <div>
+                    <Card style={{ width: '18rem' }}>
+                        <NavLink to={`/profile/${user.id}`}>
+                        <Card.Img variant="top" src={user.photos.small || userPhoto} className={s.userAvatar} />
+                        </NavLink>
+                        <Card.Body>
+                            <Card.Title>{user.name}</Card.Title>
+                            <Card.Text>
+                                {user.status}
+                            </Card.Text>
                             {user.followed
-                                ? <button disabled={disableSubscriptionButtons[user.id]}
-                                          onClick={unsubscribe(user.id)}>Unfollow</button>
-                                : <button disabled={disableSubscriptionButtons[user.id]}
-                                          onClick={subscribe(user.id)}>Follow</button>}
-                        </div>
-                    </span>
-                    <span>
-                        <span>
-                            <div>{user.name}</div>
-                            <div>{user.status}</div>
-                        </span>
-                        <span>
-                            <div>user.location.country</div>
-                            <div>user.location.city</div>
-                        </span>
-                    </span>
+                                ? <Button disabled={disableSubscriptionButtons[user.id]}
+                                          onClick={unsubscribe(user.id)}>Unfollow</Button>
+                                : <Button disabled={disableSubscriptionButtons[user.id]}
+                                          onClick={subscribe(user.id)}>Follow</Button>}
+                        </Card.Body>
+                    </Card>
                 </div>
             ))}
         </div>

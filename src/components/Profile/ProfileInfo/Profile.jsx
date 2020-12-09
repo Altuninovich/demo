@@ -3,6 +3,7 @@ import s from './Profile.module.css';
 import ava from "../../../assets/images/thumb-251882.png";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import ProfileDataFormReduxForm from "./ProfileDataForm";
+import {Card} from "react-bootstrap";
 
 const Profile = (props) => {
     const {userProfile, isOwner, savePhotoThunk, saveProfileThunk} = props;
@@ -30,8 +31,15 @@ const Profile = (props) => {
     return (
         <div className={s.content}>
             <div className={s.item}>
-                <img src={avatar}/>
-                {isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+                <Card style={{ width: '18rem' }}>
+                    <Card.Img variant="bottom" src={avatar} />
+                    <Card.Body>
+                        <Card.Text>
+                            {isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+
                 {editMode
                     ? <ProfileDataFormReduxForm initialValues={userProfile} saveDataForm={saveDataForm}/>
                     : userProfile && <ProfileData goToEditMode={() => setEditMode(true)} {...props}/>
@@ -55,7 +63,7 @@ const ProfileData = (props) => {
                 <div><b>Contacts</b>:{
                     Object.entries(userProfile.contacts)
                         .filter((el) => true)
-                        .map(([key, val]) => <div className={s.contact} key={key}><b>{key}: </b>{val}</div>)
+                        .map(([key, val]) => <div className={s.contact} key={key}><b>{key}: </b><a href={val}>{val}</a></div>)
                 }
                 </div>
             }
