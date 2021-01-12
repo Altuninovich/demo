@@ -109,6 +109,20 @@ export const getCaptchaUrlSuccess = (captchaUrl) => ({
     }
 });
 
+export const addUserToSubscription = (user) => ({
+    type: "ADD_USER_TO_SUBSCRIPTION",
+    payload: {
+        user,
+    }
+});
+
+export const deleteUserToSubscription = (id) => ({
+    type: "DELETE_USER_TO_SUBSCRIPTION",
+    payload: {
+        id,
+    }
+})
+
 export const getUsersThunk = () => async (dispatch) => {
     dispatch(togglePreloader(true));
     const response = await api.usersAPI.getUsers()
@@ -123,22 +137,24 @@ export const changeUsersThunk = (numPage) => async (dispatch) => {
             dispatch(changeUsers(response, numPage));
 };
 
-export const unsubscribeThunk = (id) => async (dispatch) => {
-    dispatch(blockSubscriptionButton(id));
-            const response = await api.followAPI.unsubscribe(id)
+export const unsubscribeThunk = (user) => async (dispatch) => {
+    dispatch(blockSubscriptionButton(user.id));
+            const response = await api.followAPI.unsubscribe(user.id)
                         if (response === 0) {
-                            dispatch(changeSubscription(id));
+                            dispatch(changeSubscription(user.id));
+                            dispatch(deleteUserToSubscription(user.id));
                         }
-                dispatch(unblockSubscriptionButton(id));
+                dispatch(unblockSubscriptionButton(user.id));
 };
 
-export const subscribeThunk = (id) => async (dispatch) => {
-    dispatch(blockSubscriptionButton(id));
-            const response = await api.followAPI.subscribe(id)
+export const subscribeThunk = (user) => async (dispatch) => {
+    dispatch(blockSubscriptionButton(user.id));
+            const response = await api.followAPI.subscribe(user.id)
                         if (response === 0) {
-                            dispatch(changeSubscription(id));
+                            dispatch(changeSubscription(user.id));
+                            dispatch(addUserToSubscription(user));
                         }
-                dispatch(unblockSubscriptionButton(id));
+                dispatch(unblockSubscriptionButton(user.id));
 };
 
 export const getUserProfileThunk = (userId) => async (dispatch) => {

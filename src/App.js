@@ -14,6 +14,7 @@ import {compose} from "redux";
 import Preloader from "./components/Users/Preloader";
 import {withSuspense} from "./hoc/withSuspense";
 import TodoListContainer from "./components/TodoList/TodoListContainer";
+import SubscriptionsContainer from "./components/Subscriptions/SubscriptionsContainer";
 //const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs')); // Ленивая загрузка
 
 const mapStateToProps = (state) => ({
@@ -52,7 +53,9 @@ class App extends React.Component {
                     <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                     <Route path='/users' render={() => <UsersContainer/>}/>
                     <Route path='/login' render={() => <LoginPage/>}/>
-                    <Route path='/tasks' render={() => <TodoListContainer/>}/></div>
+                    <Route path='/tasks' render={() => <TodoListContainer/>}/>
+                    <Route path='/subscriptions' render={() => <SubscriptionsContainer/>}/>
+                </div>
             </div>
         );
     }

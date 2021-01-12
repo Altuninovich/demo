@@ -16,13 +16,13 @@ const Users = (props) => {
         changeUsersThunk,
     } = props;
 
-    const unsubscribe = (id) => () => {
-        unsubscribeThunk(id);
+    const unsubscribe = (user) => () => {
+        unsubscribeThunk(user);
 
     };
 
-    const subscribe = (id) => () => {
-        subscribeThunk(id);
+    const subscribe = (user) => () => {
+        subscribeThunk(user);
 
     };
 
@@ -42,9 +42,9 @@ const Users = (props) => {
                             </Card.Text>
                             {user.followed
                                 ? <Button disabled={disableSubscriptionButtons[user.id]}
-                                          onClick={unsubscribe(user.id)}>Unfollow</Button>
+                                          onClick={unsubscribe(user)}>Unfollow</Button>
                                 : <Button disabled={disableSubscriptionButtons[user.id]}
-                                          onClick={subscribe(user.id)}>Follow</Button>}
+                                          onClick={subscribe(user)}>Follow</Button>}
                         </Card.Body>
                     </Card>
                 </div>

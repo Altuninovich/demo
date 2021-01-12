@@ -162,6 +162,17 @@ const appReducer = (state = false, action) => {
     }
 };
 
+const usersInSubscription = (state = [], action) => {
+    switch (action.type) {
+        case "ADD_USER_TO_SUBSCRIPTION":
+            return [action.payload.user, ...state];
+        case "DELETE_USER_TO_SUBSCRIPTION":
+            return state.filter((user) => action.payload.id !== user.id);
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
     tasks,
     messages,
@@ -176,4 +187,5 @@ export default combineReducers({
     form: formReducer,
     dataServerErrorFormValidation,
     appReducer,
+    usersInSubscription,
 });
